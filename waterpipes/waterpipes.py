@@ -76,6 +76,14 @@ class WaterPipes:
 
                                 temp_point = temp_point.prev_data
 
+                        # match left subsection can_drain with right subsection can_drain
+                        current_point.prev_data.can_drain = new_point.can_drain
+                        current_point.prev_data.calc_length_to_next()
+
+                        # move can_drain upwards to the right (and flat areas)
+                        if current_point.prev_data.can_drain:
+                            WaterPipes.__drain_upward_right(current_point.prev_data)
+
                 # past point is equal or lower. current peak blocks it
                 else:
                     if past_point.can_drain is None:
@@ -99,27 +107,17 @@ class WaterPipes:
                         between_point.prev_data.calc_length_to_next()
                         between_point.prev_data.can_drain = past_point.can_drain
 
+                        # move can_drain upwards to the right (and flat areas)
+                        if between_point.can_drain:
+                            WaterPipes.__drain_upward_right(between_point)
+
                     # move can_drain upwards to the right (and flat areas)
                     if past_point.can_drain:
-                        temp_point = past_point.next_data
-
-                        while temp_point is not None:
-                            if temp_point.next_data is None:
-                                break
-
-                            if temp_point.height > temp_point.next_data.height:
-                                break
-
-                            temp_point.can_drain = True
-                            temp_point.calc_length_to_next()
-
-                            temp_point = temp_point.next_data
+                        WaterPipes.__drain_upward_right(past_point)
 
                     del past_points[past_idx]
 
             past_points.append(current_point)
-
-        # TODO flush past_points
 
         return input_points[0]
 
@@ -213,3 +211,27 @@ class WaterPipes:
 
             if idx < len(input_points) - 1:
                 current_point.next_data = input_points[idx + 1]
+
+    @staticmethod
+    def __drain_upward_right(past_point: PipeData):
+        """
+        Go right, and if increasing or flat, set can_drain to True.
+        :param past_point:
+        :return:
+        """
+
+        # move can_drain upwards to the right (and flat areas)
+        if past_point.can_drain:
+            temp_point = past_point
+
+            while temp_point is not None:
+                if temp_point.next_data is None:
+                    break
+
+                if temp_point.height > temp_point.next_data.height:
+                    break
+
+                temp_point.can_drain = True
+                temp_point.calc_length_to_next()
+
+                temp_point = temp_point.next_data

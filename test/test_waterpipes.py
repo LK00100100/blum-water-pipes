@@ -16,7 +16,8 @@ class TestWaterPipes(TestCase):
             PipeData(5, 3),
             PipeData(6, 0),
             PipeData(7, 2),
-            PipeData(8, 5),
+            PipeData(8, 10),
+            PipeData(9, 12),
         ]
 
         output_point_head = WaterPipes.calc_drain_sections(input_pipe_data)
