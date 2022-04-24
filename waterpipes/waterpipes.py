@@ -65,16 +65,7 @@ class WaterPipes:
                             new_point.can_drain = True
 
                             # move can_drain upwards to the left (and flat areas)
-                            temp_point = new_point.prev_data
-
-                            while temp_point is not None:
-                                if temp_point.height < temp_point.next_data.height:
-                                    break
-
-                                temp_point.can_drain = True
-                                temp_point.calc_length_to_next()
-
-                                temp_point = temp_point.prev_data
+                            WaterPipes.__drain_upward_left(new_point, past_points)
 
                         # match left subsection can_drain with right subsection can_drain
                         current_point.prev_data.can_drain = new_point.can_drain
@@ -208,3 +199,31 @@ class WaterPipes:
                 temp_point.calc_length_to_next()
 
                 temp_point = temp_point.next_data
+
+    @staticmethod
+    def __drain_upward_left(past_point: PipeData, past_points: List[PipeData]):
+        """
+        Go left, and if increasing or flat, set can_drain to True. Even try all the past_points
+        :param past_point:
+        :param past_points: a list of points from the past, that are not blocked by a peak. all up-to-date with
+        past_point.
+        :return:
+        """
+        temp_point = past_point
+
+        past_idx = len(past_points) - 1
+
+        while temp_point is not None:
+            if temp_point.height < temp_point.next_data.height:
+                if past_idx < 0:
+                    break
+
+                temp_point = past_points[past_idx]
+
+                past_idx -= 1
+                continue
+
+            temp_point.can_drain = True
+            temp_point.calc_length_to_next()
+
+            temp_point = temp_point.prev_data

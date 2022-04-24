@@ -4,6 +4,8 @@ Given an array of PipeData, this program will calculate what sections will drain
 
 Check out the unit tests for more information.
 
+note: finish todos and test more
+
 ## setup
 
 ```
