@@ -37,7 +37,7 @@ class WaterPipes:
 
             # peak hit, process the past
 
-            # touch past points. may remove
+            # touch past points. remove past point blocked by a peak.
             for past_idx in range(len(past_points) - 1, -1, -1):
 
                 past_point = past_points[past_idx]
@@ -51,6 +51,7 @@ class WaterPipes:
 
                     # we need to add another point in-between past and next
 
+                    # split left
                     past_point.split(current_point.height)
                     new_point = past_point.next_data
 
@@ -71,10 +72,24 @@ class WaterPipes:
                         past_point.calc_length_to_next()
                         past_point.can_drain = True
 
+                    # split right
+                    if past_point != current_point.prev_data:
+                        current_point.prev_data.split(past_point.height)
+
+                        between_point = current_point.prev_data
+
+                        between_point.calc_length_to_next()
+                        between_point.can_drain = past_point.can_drain
+
+                        between_point.prev_data.calc_length_to_next()
+                        between_point.prev_data.can_drain = past_point.can_drain
+
                     del past_points[past_idx]
                     continue
 
             past_points.append(current_point)
+
+        # TODO flush past_points
 
         return input_points[0]
 

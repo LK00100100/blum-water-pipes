@@ -49,7 +49,8 @@ class PipeData:
         if self.next_data is None:
             raise ValueError("no next point to calc")
 
-        if split_height >= self.height or split_height <= self.next_data.height:
+        if min(self.height, self.next_data.height) > split_height > max(self.height,
+                                                                        self.next_data.height):
             raise ValueError("split_height not in between self and next point")
 
         big_height = abs(self.height - self.next_data.height)
