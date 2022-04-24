@@ -1,4 +1,3 @@
-import copy
 from typing import List
 
 from waterpipes.pipedata import PipeData
@@ -19,11 +18,11 @@ class WaterPipes:
 
         WaterPipes.__sort_and_connect(input_points)
 
-        # any peaks from the past that are overtaken. not ordered
+        # any peaks from the past that are overtaken. ordered by appearance. always decreasing height
         # important! past peaks should be overtaken in the future by a bigger peak. don't add overtaken peaks.
-        past_points: list[PipeData] = []
+        past_points: List[PipeData] = []
 
-        drain_points: list[PipeData] = WaterPipes.__get_drain_points(input_points)
+        drain_points: List[PipeData] = WaterPipes.__get_drain_points(input_points)
 
         # TODO: will have to work with non-peaks later
 

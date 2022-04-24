@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from plotter.pipedataplotter import PipeDataPlotter
 from waterpipes.pipedata import PipeData
 from waterpipes.waterpipes import WaterPipes
 
@@ -25,6 +26,8 @@ class TestWaterPipes(TestCase):
         while current is not None:
             print(current)
             current = current.next_data
+
+        PipeDataPlotter.plot_pipe_data_head(output_point_head)
 
 # test with decimals.
 # test end points

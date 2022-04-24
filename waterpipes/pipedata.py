@@ -9,7 +9,7 @@ class PipeData:
     """
 
     x: float  # x location
-    height: int  # y or height
+    height: float  # y or height
     is_drain_point: bool  # if true, there is a drain here (optional)
 
     length: float  # length to next point (optional. defaults to 0)
@@ -39,7 +39,7 @@ class PipeData:
 
         self.length = math.sqrt((width * width) + (height * height))
 
-    def split(self, split_height: int):
+    def split(self, split_height: float):
         """
         if between current height and next height, split_height, will add a new node between current and next.
         current, in-between, and next will have their next_data adjusted.
