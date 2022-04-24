@@ -26,4 +26,6 @@ class PipeDataPlotter:
 
             current = current.next_data
 
+        plt.xlabel("x")
+        plt.ylabel("heights")
         plt.show()
