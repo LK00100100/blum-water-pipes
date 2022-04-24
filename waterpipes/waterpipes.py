@@ -31,11 +31,12 @@ class WaterPipes:
         for current_idx, current_point in enumerate(input_points):
 
             # peak check
-            if not WaterPipes.__is_peak(input_points, current_idx):
+            # TODO check for flat
+
+            # current point is decreasing, skip
+            if current_point.prev_data is None or current_point.prev_data.height > current_point.height:
                 past_points.append(current_point)
                 continue
-
-            # peak hit, process the past
 
             # touch past points. remove past point blocked by a peak.
             for past_idx in range(len(past_points) - 1, -1, -1):
@@ -67,7 +68,6 @@ class WaterPipes:
                     if not WaterPipes.__drain_point_exists(drain_points, past_point.x, current_point.x):
                         past_point.calc_length_to_next()
                         past_point.can_drain = False
-                        pass
                     else:
                         past_point.calc_length_to_next()
                         past_point.can_drain = True
@@ -85,7 +85,6 @@ class WaterPipes:
                         between_point.prev_data.can_drain = past_point.can_drain
 
                     del past_points[past_idx]
-                    continue
 
             past_points.append(current_point)
 
