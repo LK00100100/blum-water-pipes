@@ -46,33 +46,49 @@ class WaterPipes:
                 if past_point.height > current_point.height:
 
                     # past_point and the next_point is too high. ignore
-                    if past_point.next_data.height > current_point.height:
+                    if past_point.next_data.height >= current_point.height:
                         continue
 
                     # we need to add another point in-between past and next
 
                     # split left
+
                     past_point.split(current_point.height)
                     new_point = past_point.next_data
 
                     new_point.calc_length_to_next()
-                    new_point.can_drain = False
 
-                    if WaterPipes.__drain_point_exists(drain_points, past_point.x, current_point.x):
-                        new_point.can_drain = True
+                    if new_point.can_drain is None:
+                        new_point.can_drain = False
+
+                        if WaterPipes.__drain_point_exists(drain_points, past_point.x, current_point.x):
+                            new_point.can_drain = True
+
+                            # move can_drain upwards to the left (and flat areas)
+                            temp_point = new_point.prev_data
+
+                            while temp_point is not None:
+                                if temp_point.height < temp_point.next_data.height:
+                                    break
+
+                                temp_point.can_drain = True
+                                temp_point.calc_length_to_next()
+
+                                temp_point = temp_point.prev_data
 
                 # past point is equal or lower. current peak blocks it
                 else:
-                    # does not drain
-                    if not WaterPipes.__drain_point_exists(drain_points, past_point.x, current_point.x):
-                        past_point.calc_length_to_next()
-                        past_point.can_drain = False
-                    else:
-                        past_point.calc_length_to_next()
-                        past_point.can_drain = True
+                    if past_point.can_drain is None:
+                        # does not drain
+                        if not WaterPipes.__drain_point_exists(drain_points, past_point.x, current_point.x):
+                            past_point.calc_length_to_next()
+                            past_point.can_drain = False
+                        else:
+                            past_point.calc_length_to_next()
+                            past_point.can_drain = True
 
                     # split right
-                    if past_point != current_point.prev_data:
+                    if past_point != current_point.prev_data and past_point.height != current_point.height:
                         current_point.prev_data.split(past_point.height)
 
                         between_point = current_point.prev_data
@@ -82,6 +98,22 @@ class WaterPipes:
 
                         between_point.prev_data.calc_length_to_next()
                         between_point.prev_data.can_drain = past_point.can_drain
+
+                    # move can_drain upwards to the right (and flat areas)
+                    if past_point.can_drain:
+                        temp_point = past_point.next_data
+
+                        while temp_point is not None:
+                            if temp_point.next_data is None:
+                                break
+
+                            if temp_point.height > temp_point.next_data.height:
+                                break
+
+                            temp_point.can_drain = True
+                            temp_point.calc_length_to_next()
+
+                            temp_point = temp_point.next_data
 
                     del past_points[past_idx]
 
