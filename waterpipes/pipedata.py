@@ -21,7 +21,7 @@ class PipeData:
 
     # todo: can put where this will drain to.
 
-    def __init__(self, x: float, height: float, length: float = 0, is_drain_point: bool = False):
+    def __init__(self, x: float, height: float, is_drain_point: bool = False, length: float = 0):
         self.x = x
         self.height = height
         self.length = length
