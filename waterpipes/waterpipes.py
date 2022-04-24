@@ -145,33 +145,6 @@ class WaterPipes:
         return True
 
     @staticmethod
-    def __is_peak(input_points: List[PipeData], idx):
-        """
-        is the point at input_points[idx] a peak?
-
-        Peak if the points to the left and right or equal or lower.
-        1,2,1. 2 is a peak.
-        1,2,2. both 2s are peaks.
-        :param input_points:
-        :param idx:
-        :return: True if peak. False otherwise
-        """
-        if len(input_points) <= 1:
-            raise ValueError("not enough input_points")
-
-        # first point
-        if idx == 0:
-            return input_points[idx].height >= input_points[idx + 1].height
-
-        # last point
-        if idx == len(input_points) - 1:
-            return input_points[idx - 1].height <= input_points[idx].height
-
-        # middle points
-        return (input_points[idx - 1].height <= input_points[idx].height) and (
-                input_points[idx].height >= input_points[idx + 1].height)
-
-    @staticmethod
     def __get_drain_points(input_points: List[PipeData]):
         drain_points = []
 
