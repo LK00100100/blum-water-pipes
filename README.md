@@ -41,3 +41,5 @@ This will add more PipeData points as necessary. What causes another point to be
 The code is written without too many optimizations since this will need to be ported to VBA.
 
 Input size should be around 100 points.
+
+I believe I can just go left/right from the drain. Try later
