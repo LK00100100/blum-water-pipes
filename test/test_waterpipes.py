@@ -57,7 +57,7 @@ class TestWaterPipes(TestCase):
 
         input_pipe_data = []
 
-        with open('./input_files/main_input.csv') as file:
+        with open('./input_files/main_input.csv', 'r') as file:
             for line in file:
                 if "x" in line:
                     continue
