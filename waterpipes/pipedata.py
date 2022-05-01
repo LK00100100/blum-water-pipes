@@ -73,6 +73,22 @@ class PipeData:
         self.next_data.prev_data = between_node
         self.next_data = between_node
 
+    @staticmethod
+    def convert_to_list(head: 'PipeData'):
+        """
+        Converts to a list by calling next until it hits None
+        :param head:
+        :return:
+        """
+        answer = []
+
+        current = head
+        while current is not None:
+            answer.append(current)
+            current = current.next_data
+
+        return answer
+
     def __repr__(self):
         is_drain_str = ""
         if self.is_drain_point:
