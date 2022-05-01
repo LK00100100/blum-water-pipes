@@ -20,9 +20,21 @@ class PipeDataPlotter:
 
             x1, y1 = [current.x, next_node.x], [current.height, next_node.height]
 
-            target_color = 'aqua' if current.can_drain else 'pink'
+            # color line if both nodes are good.
+            # if only one node drains, check code below
+            target_color = 'gray'
+            if current.can_drain and current.next_data is not None and current.next_data.can_drain:
+                target_color = 'aqua'
 
             plt.plot(x1, y1, marker='o', color=target_color)
+
+            current = current.next_data
+
+        # color singular can_drain nodes
+        current = pipe_data_head
+        while current is not None:
+            if current.can_drain:
+                plt.scatter([current.x], [current.height], color='aqua', zorder=10)
 
             current = current.next_data
 
