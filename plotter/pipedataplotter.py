@@ -22,7 +22,7 @@ class PipeDataPlotter:
 
             # color line if both nodes are good.
             # if only one node drains, check code below
-            target_color = 'gray'
+            target_color = 'lightgray'
             if current.can_drain and current.next_data is not None and current.next_data.can_drain:
                 target_color = 'aqua'
 

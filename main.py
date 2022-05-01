@@ -4,8 +4,6 @@ from waterpipes.waterpipes import WaterPipes
 
 
 def main():
-    # TODO: just pass in a CSV through args
-
     input_pipe_data = []
 
     print("Please input the file path...")

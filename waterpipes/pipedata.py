@@ -19,8 +19,6 @@ class PipeData:
     prev_data: Union[None, 'PipeData']
     next_data: Union[None, 'PipeData']
 
-    # todo: can put where this will drain to.
-
     def __init__(self, x: float, height: float, is_drain_point: bool = False, length: float = 0):
         self.x = x
         self.height = height
