@@ -1,4 +1,9 @@
 # blum-water-pipes
+![GitHub](https://img.shields.io/github/license/LK00100100/blum-water-pipes.svg)
+![RepoSize](https://img.shields.io/github/repo-size/LK00100100/blum-water-pipes.svg)
+![GitHub stars](https://img.shields.io/github/stars/LK00100100/blum-water-pipes.svg?style=social)
+
+![alt text](https://raw.githubusercontent.com/LK00100100/blum-water-pipes/master/img_sample.JPG "sample")
 
 Given an array of PipeData, this program will calculate what sections will drain.
 
