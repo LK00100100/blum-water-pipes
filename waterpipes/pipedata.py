@@ -32,7 +32,8 @@ class PipeData:
 
     def calc_length_to_next(self):
         if self.next_data is None:
-            raise ValueError("no next point to calc")
+            self.length = 0
+            return
 
         width = abs(self.x - self.next_data.x)
         height = abs(self.height - self.next_data.height)

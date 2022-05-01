@@ -27,6 +27,11 @@ class WaterPipes:
         for drain_point in drain_points:
             WaterPipes._calc_what_drains(drain_point)
 
+        current = input_head
+        while current is not None:
+            current.calc_length_to_next()
+            current = current.next_data
+
         return input_head
 
     @staticmethod
