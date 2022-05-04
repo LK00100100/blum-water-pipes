@@ -5,6 +5,7 @@
 
 ![alt text](https://raw.githubusercontent.com/LK00100100/blum-water-pipes/master/img_sample.JPG "sample")
 
+Imagine the pipes are full of pressurized water. Then when the pressure is turned off, gravity takes over.
 Given an array of PipeData, this program will calculate what sections will drain.
 
 Check out the unit tests for more information.
